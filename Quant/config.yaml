@@ -1,0 +1,50 @@
+# 数据模块配置
+data:
+  market: 
+    -"csi300"      
+    -"SPX"   
+  start_time: "2020-01-01" 
+  end_time: "2023-12-31"   
+  features:
+    - "$open"              
+    - "$high"              
+    - "$low"              
+    - "$close"             
+    - "$volume"           
+    - "Ref($close, -1)/$close - 1"  
+    - "Mean($close, 5)/$close"     
+    - "Mean($close, 20)/$close"     
+
+# 策略模块配置
+strategy:
+  name: "DoubleMAStrategy" 
+  params:
+    short_window: 5        
+    long_window: 20       
+
+# 交易引擎配置
+backtest:
+  initial_capital: 1000000 
+  slippage: 0.001          
+  commission: 0.002        
+  match_engine:
+    type: "VolumeBasedMatch" 
+    volume_limit: 0.2      
+
+# 账户与风险管理
+risk_control:
+  max_drawdown: 0.2       
+  position_limit: 0.5      
+  blacklist:               
+    - "SH600000"
+    - "SZ000001"
+
+# 绩效评估配置
+evaluation:
+  metrics:
+    - "sharpe_ratio"       
+    - "max_drawdown"       
+    - "annualized_return"  
+  plot:
+    enable: true           
+    output_path: "results/backtest_plot.png"  
