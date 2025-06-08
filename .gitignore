@@ -28,6 +28,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.conda
 # Distribution / packaging
 .Python
 build/
